@@ -1,5 +1,6 @@
-package it.accenture.bootcamp.models;
+package it.accenture.bootcamp.dtos;
 
+import it.accenture.bootcamp.models.Classroom;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,9 +8,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class Classroom {
+@NoArgsConstructor
+public class ClassroomDTO {
     private long id;
     private String name;
     private Integer capacity;
@@ -18,4 +19,9 @@ public class Classroom {
     private Boolean hasMainPc;
     private Boolean isComputerized;
     private boolean isVirtual;
+
+    public static ClassroomDTO fromClassroom(Classroom c) {
+        return new ClassroomDTO(c.getId(), c.getName(), c.getCapacity(), c.getSoftware(), c.getHasProjector(),
+                c.getHasMainPc(), c.getIsComputerized(), c.isVirtual());
+    }
 }
