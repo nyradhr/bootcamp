@@ -2,6 +2,7 @@ package it.accenture.bootcamp.repositories.implementations;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import it.accenture.bootcamp.models.Classroom;
 import it.accenture.bootcamp.repositories.abstractions.ClassroomRepository;
 
-@Repository
+// @Repository
 public class JdbcClassroomRepository implements ClassroomRepository {
 
     private JdbcTemplate template;
@@ -21,7 +22,7 @@ public class JdbcClassroomRepository implements ClassroomRepository {
     }
 
     @Override
-    public Iterable<Classroom> getAll() {
+    public Iterable<Classroom> findAll() {
         return template.query("SELECT * FROM CLASSROOM", this::rowMapper);
     }
 
@@ -43,6 +44,36 @@ public class JdbcClassroomRepository implements ClassroomRepository {
         return new Classroom(rs.getLong("ID"), rs.getString("NAME"),
                 rs.getInt("CAPACITY"), rs.getString("SOFTWARE"),
                 projector, mainPc, isComp, rs.getBoolean("IS_VIRTUAL"));
+    }
+
+    @Override
+    public void delete(Classroom c) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void deleteById(long id) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public Optional<Classroom> findById(long id) {
+        // TODO Auto-generated method stub
+        return Optional.empty();
+    }
+
+    @Override
+    public Classroom save(Classroom c) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public boolean existsById(long id) {
+        // TODO Auto-generated method stub
+        return false;
     }
 
 }

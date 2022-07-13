@@ -1,17 +1,24 @@
 package it.accenture.bootcamp.controllers;
 
+import java.util.Optional;
 import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.accenture.bootcamp.dtos.ClassroomDTO;
+import it.accenture.bootcamp.exceptions.EntityNotFoundException;
 import it.accenture.bootcamp.models.Classroom;
 import it.accenture.bootcamp.services.abstractions.EducationService;
 
 @RestController
+@RequestMapping("classroom")
 public class ClassroomController {
 
     private EducationService eduService;
@@ -21,7 +28,7 @@ public class ClassroomController {
         this.eduService = eduService;
     }
 
-    @GetMapping(value = "/classroom")
+    @GetMapping
     public ResponseEntity<Iterable<ClassroomDTO>> getAll() {
         // System.out.println("Hello Spring & alessio");
         // Classroom classroom = new Classroom(1, "Aula bella");
@@ -45,5 +52,24 @@ public class ClassroomController {
         var dtos = StreamSupport.stream(cls.spliterator(), false).map(ClassroomDTO::fromClassroom).toList();
 
         return ResponseEntity.ok(dtos);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<ClassroomDTO> findById(@PathVariable long id) {
+        Optional<Classroom> optClass = eduService.findClassroomById(id);
+        if (optClass.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(optClass.map(ClassroomDTO::fromClassroom).get());
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<String> deleteById(@PathVariable long id) {
+        try {
+            eduService.deleteClassroomById(id);
+            return ResponseEntity.noContent().build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 }
