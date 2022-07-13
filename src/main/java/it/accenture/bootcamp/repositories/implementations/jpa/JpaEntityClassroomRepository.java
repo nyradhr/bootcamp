@@ -1,4 +1,4 @@
-package it.accenture.bootcamp.repositories.implementations;
+package it.accenture.bootcamp.repositories.implementations.jpa;
 
 import java.util.List;
 import java.util.Optional;

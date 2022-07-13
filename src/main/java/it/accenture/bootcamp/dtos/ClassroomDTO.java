@@ -27,6 +27,6 @@ public class ClassroomDTO {
 
     public Classroom toClassroom() {
         return new Classroom(this.id, this.name, this.capacity, this.software, this.hasProjector, this.hasMainPc,
-                this.isComputerized, this.isVirtual());
+                this.isComputerized, this.isVirtual);
     }
 }

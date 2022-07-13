@@ -17,23 +17,11 @@ import lombok.Setter;
 @AllArgsConstructor
 
 @Entity
-public class Classroom /*implements DBModel*/{
+public class Sector {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private long id;
     @Column(name = "NAME")
     private String name;
-    @Column(name = "CAPACITY")
-    private Integer capacity;
-    @Column(name = "SOFTWARE")
-    private String software;
-    @Column(name = "PROJECTOR")
-    private Boolean hasProjector;
-    @Column(name = "TEACHER_PC")
-    private Boolean hasMainPc;
-    @Column(name = "STUDENTS_PC")
-    private Boolean isComputerized;
-    @Column(name = "IS_VIRTUAL")
-    private boolean isVirtual;
 }

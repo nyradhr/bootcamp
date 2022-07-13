@@ -1,4 +1,4 @@
-package it.accenture.bootcamp.repositories.implementations;
+package it.accenture.bootcamp.repositories.implementations.jdbc;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

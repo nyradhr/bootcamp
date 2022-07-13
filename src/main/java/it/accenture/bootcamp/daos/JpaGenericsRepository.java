@@ -1,11 +1,11 @@
-package it.accenture.bootcamp.repositories.implementations;
+package it.accenture.bootcamp.daos;
 
 import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
-import it.accenture.bootcamp.repositories.abstractions.GenericsRepository;
+import it.accenture.bootcamp.daos.GenericsRepository;
 
 public class JpaGenericsRepository<K, T> implements GenericsRepository<K, T> {
 

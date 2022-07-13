@@ -19,23 +19,25 @@ import lombok.Setter;
 @AllArgsConstructor
 
 @Entity
-public class Edition /*implements DBModel*/{
+public class Tutor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID")
     private long id;
-    @Column(name="START_DATE")
-    private LocalDate startDate;
-    @Column(name="END_DATE")
-    private LocalDate endDate;
-    @Column(name="COURSE")
-    private long courseId;
-    @Column(name="FINANCING")
-    private String financing;
-    @Column(name="COST")
-    private Integer cost;
-    @Column(name="TUTOR")
-    private long tutorId;
-    @Column(name="CODE")
-    private String code;
+    @Column(name="NAME")
+    private String name;
+    @Column(name="SURNAME")
+    private String surname;
+    @Column(name="BDATE")
+    private LocalDate bdate;
+    @Column(name="GENDER")
+    private String gender;
+    @Column(name="PHONE")
+    private String phone;
+    @Column(name="ADDRESS")
+    private String address;
+    @Column(name="EMAIL")
+    private String email;
+    @Column(name="PREFERRED_SECTOR")
+    private long sectorId;
 }
