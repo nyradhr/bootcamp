@@ -24,4 +24,9 @@ public class ClassroomDTO {
         return new ClassroomDTO(c.getId(), c.getName(), c.getCapacity(), c.getSoftware(), c.getHasProjector(),
                 c.getHasMainPc(), c.getIsComputerized(), c.isVirtual());
     }
+
+    public Classroom toClassroom() {
+        return new Classroom(this.id, this.name, this.capacity, this.software, this.hasProjector, this.hasMainPc,
+                this.isComputerized, this.isVirtual());
+    }
 }

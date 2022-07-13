@@ -15,7 +15,7 @@ public interface EducationService {
 
     Optional<Classroom> findClassroomById(long id);
 
-    Classroom saveOrUpdateClassroom(Classroom c);
+    Classroom saveOrUpdateClassroom(Classroom c) throws EntityNotFoundException;
 
     boolean classroomExists(long id);
 }

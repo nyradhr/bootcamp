@@ -5,13 +5,15 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import it.accenture.bootcamp.models.Classroom;
 import it.accenture.bootcamp.repositories.abstractions.ClassroomRepository;
 
-// @Repository
+@Repository
+@Profile("jdbc")
 public class JdbcClassroomRepository implements ClassroomRepository {
 
     private JdbcTemplate template;

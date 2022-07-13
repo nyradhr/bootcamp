@@ -6,13 +6,14 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import it.accenture.bootcamp.models.Classroom;
 import it.accenture.bootcamp.repositories.abstractions.ClassroomRepository;
 
 @Repository
+@Profile("jpa")
 public class JpaEntityClassroomRepository implements ClassroomRepository {
 
     private EntityManager em;
@@ -29,13 +30,11 @@ public class JpaEntityClassroomRepository implements ClassroomRepository {
         return cl;
     }
 
-    @Transactional
     @Override
     public void delete(Classroom c) {
         em.remove(c);
     }
 
-    @Transactional
     @Override
     public void deleteById(long id) {
         Query q = em.createQuery("DELETE FROM Classroom WHERE id=:id");
@@ -49,7 +48,6 @@ public class JpaEntityClassroomRepository implements ClassroomRepository {
         return c == null ? Optional.empty() : Optional.of(c);
     }
 
-    @Transactional
     @Override
     public Classroom save(Classroom c) {
         Classroom cr = em.merge(c);
@@ -58,7 +56,7 @@ public class JpaEntityClassroomRepository implements ClassroomRepository {
 
     @Override
     public boolean existsById(long id) {
-        return findById(id) != null;
+        return findById(id).isPresent();
     }
 
 }
