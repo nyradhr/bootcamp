@@ -7,6 +7,7 @@ import java.util.stream.StreamSupport;
 
 import it.accenture.bootcamp.mapstruct.ClassroomMapper;
 import it.accenture.bootcamp.services.implementations.ClassroomCrudService;
+import it.accenture.bootcamp.services.abstractions.AbstractCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,7 @@ public class ClassroomController {
 
     private EducationService eduService;
     private ClassroomCrudService crudService;
+    //private AbstractCrudService<Classroom, Long> crudService;
 
     @Autowired
     public ClassroomController(EducationService eduService, ClassroomCrudService crudService) {

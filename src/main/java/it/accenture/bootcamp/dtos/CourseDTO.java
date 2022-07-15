@@ -17,7 +17,7 @@ import javax.persistence.Column;
 @AllArgsConstructor
 public class CourseDTO {
 
-    private long id;
+    private Long id;
     private String title;
     private long sectorId;
     private String sectorName;

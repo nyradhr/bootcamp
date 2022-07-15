@@ -6,6 +6,7 @@ import it.accenture.bootcamp.models.Sector;
 import it.accenture.bootcamp.repositories.abstractions.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -70,13 +71,15 @@ public class JdbcCourseRepository implements CourseRepository {
 
     @Override
     public Optional<Course> findById(Long id) {
-        Course c = template.queryForObject("SELECT C.ID, C.TITLE, C.DURATION, " +
-                "C.COURSE_LEVEL, C.DESCRIPTION, C.COST, S.ID SECTOR_ID, S.NAME SECTOR_NAME " +
-                "FROM COURSE C JOIN SECTOR S ON (C.SECTOR = S.ID) WHERE ID = ?", this::rowMapper, id);
-        if (c == null)
-            return Optional.empty();
-        else
+        try{
+            Course c = template.queryForObject("SELECT C.ID, C.TITLE, C.DURATION, " +
+                    "C.COURSE_LEVEL, C.DESCRIPTION, C.COST, S.ID SECTOR_ID, S.NAME SECTOR_NAME " +
+                    "FROM COURSE C JOIN SECTOR S ON (C.SECTOR = S.ID) WHERE C.ID = ?", this::rowMapper, id);
             return Optional.of(c);
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
+
     }
 
     @Override
@@ -198,7 +201,7 @@ public class JdbcCourseRepository implements CourseRepository {
                     " VALUES (?, ?, ?, ?, ?, ?)", getComponents(c));
         }
         else{   //save
-            template.update("Insert INTO CLASSROOM ((ID, TITLE, DURATION, COURSE_LEVEL, DESCRIPTION, SECTOR_ID)" +
+            template.update("INSERT INTO CLASSROOM (ID, TITLE, DURATION, COURSE_LEVEL, DESCRIPTION, SECTOR_ID)" +
                     " VALUES (?, ?, ?, ?, ?, ?)", getComponents(c));
         }
         return c;

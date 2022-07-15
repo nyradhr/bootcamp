@@ -1,10 +1,10 @@
 package it.accenture.bootcamp.services.implementations;
 
 import it.accenture.bootcamp.exceptions.EntityNotFoundException;
-import it.accenture.bootcamp.models.Classroom;
 import it.accenture.bootcamp.models.abstractions.WithId;
 import it.accenture.bootcamp.services.abstractions.AbstractCrudService;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
@@ -12,9 +12,11 @@ import static it.accenture.bootcamp.services.implementations.EducationServiceImp
 
 //@Service
 public class CrudService<T extends WithId<K>, K, R extends JpaRepository<T, K>> implements AbstractCrudService<T, K> {
-    private R repo;
-    public CrudService(R repo){
+    private final R repo;
+    private Class<?> entityClass;
+    public CrudService(R repo, Class<?> entityClass){
         this.repo = repo;
+        this.entityClass = entityClass;
     }
 
     @Override
@@ -32,14 +34,14 @@ public class CrudService<T extends WithId<K>, K, R extends JpaRepository<T, K>> 
         if (exists(k)) {
             repo.deleteById(k);
         } else {
-            throw new EntityNotFoundException(ERROR_NOT_FOUND, Classroom.class, (long) k);
+            throw new EntityNotFoundException(ERROR_NOT_FOUND, entityClass, (long) k);
         }
     }
 
     @Override
     public T saveOrUpdate(T t) throws EntityNotFoundException {
-        if (!t.getId().equals(0) && !exists(t.getId())) {
-            throw new EntityNotFoundException(ERROR_NOT_FOUND, Classroom.class, (long) t.getId());
+        if (t.getId()!=null && !t.getId().equals(0) && !exists(t.getId())) {
+            throw new EntityNotFoundException(ERROR_NOT_FOUND, entityClass, (long) t.getId());
         }
         return repo.save(t);
     }
@@ -48,4 +50,5 @@ public class CrudService<T extends WithId<K>, K, R extends JpaRepository<T, K>> 
     public boolean exists(K id) {
         return findById(id).isPresent();
     }
+
 }

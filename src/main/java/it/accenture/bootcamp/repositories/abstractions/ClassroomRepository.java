@@ -1,7 +1,5 @@
 package it.accenture.bootcamp.repositories.abstractions;
 
-import java.util.Optional;
-
 import it.accenture.bootcamp.models.Classroom;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
