@@ -1,13 +1,13 @@
-package it.accenture.bootcamp.daos;
+package it.accenture.bootcamp.repositories.implementations.jpa;
 
 import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
-import it.accenture.bootcamp.daos.GenericsRepository;
+import it.accenture.bootcamp.repositories.abstractions.GenericsRepository;
 
-public class JpaGenericsRepository<K, T> implements GenericsRepository<K, T> {
+public class JpaGenericsRepository<T, K> implements GenericsRepository<T, K> {
 
     protected Class<?> entityClass;
     protected EntityManager em;

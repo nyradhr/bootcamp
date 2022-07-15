@@ -26,14 +26,14 @@ public class CourseDTO {
     private String description;
     private int cost;
 
-    public static CourseDTO fromCourse(Course c) {
-        return new CourseDTO(c.getId(), c.getTitle(), c.getSectorId(),
-                c.getDuration(), c.getCourseLevel(), c.getDescription(), c.getCost());
-    }
-
-    public Course toCourse() {
-        return new Course(this.getId(), this.getTitle(), this.getSectorId(), this.getDuration(), this.getCourseLevel(),
-                this.getDescription(), this.getCost());
-    }
+//    public static CourseDTO fromCourse(Course c) {
+//        return new CourseDTO(c.getId(), c.getTitle(), c.getSectorId(),
+//                c.getDuration(), c.getCourseLevel(), c.getDescription(), c.getCost());
+//    }
+//
+//    public Course toCourse() {
+//        return new Course(this.getId(), this.getTitle(), this.getSectorId(), this.getDuration(), this.getCourseLevel(),
+//                this.getDescription(), this.getCost());
+//    }
 
 }

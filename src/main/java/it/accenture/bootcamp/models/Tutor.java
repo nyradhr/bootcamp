@@ -2,11 +2,7 @@ package it.accenture.bootcamp.models;
 
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,8 +13,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 @Entity
+@Table (name = "TUTOR")
 public class Tutor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,5 +35,10 @@ public class Tutor {
     @Column(name="EMAIL")
     private String email;
     @Column(name="PREFERRED_SECTOR")
-    private long sectorId;
+    @OneToOne
+    @JoinColumn(name = "SECTOR", referencedColumnName = "ID")
+    private Sector sector;
+
+    @OneToOne
+    private Edition edition;
 }

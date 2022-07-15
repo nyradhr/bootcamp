@@ -1,11 +1,8 @@
 package it.accenture.bootcamp.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+import it.accenture.bootcamp.models.abstractions.WithId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,14 +12,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 @Entity
-public class Classroom /*implements DBModel*/{
+@Table(name = "CLASSROOM")
+public class Classroom implements WithId<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private long id;
-    @Column(name = "NAME")
+    private Long id;
+    @Column(name = "NAME", nullable = false)
     private String name;
     @Column(name = "CAPACITY")
     private Integer capacity;
@@ -31,9 +28,12 @@ public class Classroom /*implements DBModel*/{
     @Column(name = "PROJECTOR")
     private Boolean hasProjector;
     @Column(name = "TEACHER_PC")
-    private Boolean hasMainPc;
+    private Boolean hasTeacherPc;
     @Column(name = "STUDENTS_PC")
-    private Boolean isComputerized;
-    @Column(name = "IS_VIRTUAL")
+    private Boolean hasStudentPc;
+    @Column(name = "IS_VIRTUAL", nullable = false)
     private boolean isVirtual;
+
+    @OneToOne
+    private Lecture lecture;
 }

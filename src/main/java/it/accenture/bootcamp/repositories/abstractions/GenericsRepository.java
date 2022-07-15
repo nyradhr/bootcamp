@@ -1,8 +1,8 @@
-package it.accenture.bootcamp.daos;
+package it.accenture.bootcamp.repositories.abstractions;
 
 import java.util.Optional;
 
-public interface GenericsRepository<K, T> {
+public interface GenericsRepository<T, K> {
     Iterable<T> findAll();
 
     void delete(T c);

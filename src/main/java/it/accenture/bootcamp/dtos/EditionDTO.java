@@ -22,16 +22,16 @@ public class EditionDTO {
     private long tutorId;
     private String code;
 
-    public static EditionDTO fromEdition(Edition e) {
-        return new EditionDTO(e.getId(), e.getStartDate(), e.getEndDate(), e.getCourseId(),
-                e.getFinancing(), e.getCost(), e.getTutorId(), e.getCode());
-    }
-
-
-    public Edition toEdition() {
-        return new Edition(this.id, this.startDate, this.endDate, this.courseId, this.financing,
-                this.cost, this.tutorId, this.code);
-    }
+//    public static EditionDTO fromEdition(Edition e) {
+//        return new EditionDTO(e.getId(), e.getStartDate(), e.getEndDate(), e.getCourseId(),
+//                e.getFinancing(), e.getCost(), e.getTutorId(), e.getCode());
+//    }
+//
+//
+//    public Edition toEdition() {
+//        return new Edition(this.id, this.startDate, this.endDate, this.courseId, this.financing,
+//                this.cost, this.tutorId, this.code);
+//    }
 
 
 }

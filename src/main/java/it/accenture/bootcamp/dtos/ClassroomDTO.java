@@ -11,7 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ClassroomDTO {
-    private long id;
+
+    private Long id;
     private String name;
     private Integer capacity;
     private String software;
@@ -20,13 +21,14 @@ public class ClassroomDTO {
     private Boolean isComputerized;
     private boolean isVirtual;
 
-    public static ClassroomDTO fromClassroom(Classroom c) {
-        return new ClassroomDTO(c.getId(), c.getName(), c.getCapacity(), c.getSoftware(), c.getHasProjector(),
-                c.getHasMainPc(), c.getIsComputerized(), c.isVirtual());
-    }
+//    public static ClassroomDTO fromClassroom(Classroom c) {
+//        return new ClassroomDTO(c.getId(), c.getName(), c.getCapacity(), c.getSoftware(), c.getHasProjector(),
+//                c.getHasMainPc(), c.getIsComputerized(), c.isVirtual());
+//    }
+//
+//    public Classroom toClassroom() {
+//        return new Classroom(this.id, this.name, this.capacity, this.software, this.hasProjector, this.hasMainPc,
+//                this.isComputerized, this.isVirtual);
+//    }
 
-    public Classroom toClassroom() {
-        return new Classroom(this.id, this.name, this.capacity, this.software, this.hasProjector, this.hasMainPc,
-                this.isComputerized, this.isVirtual);
-    }
 }

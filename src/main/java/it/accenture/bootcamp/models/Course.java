@@ -1,15 +1,14 @@
 package it.accenture.bootcamp.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+import it.accenture.bootcamp.models.abstractions.WithId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -17,15 +16,18 @@ import lombok.Setter;
 @AllArgsConstructor
 
 @Entity
-public class Course /*implements DBModel*/{
+@Table (name = "COURSE")
+public class Course implements WithId<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private long id;
+    private Long id;
     @Column(name="TITLE")
     private String title;
     @Column(name="SECTOR")
-    private long sectorId;
+    @OneToOne
+    @JoinColumn(name = "SECTOR", referencedColumnName = "ID")
+    private Sector sector;
     @Column(name="DURATION")
     private int duration;
     @Column(name="COURSE_LEVEL")
@@ -34,4 +36,7 @@ public class Course /*implements DBModel*/{
     private String description;
     @Column(name="COST")
     private int cost;
+
+    @OneToOne
+    private Edition edition;
 }

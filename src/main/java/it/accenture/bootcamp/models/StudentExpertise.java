@@ -1,31 +1,33 @@
 package it.accenture.bootcamp.models;
 
-import javax.persistence.*;
-
-import it.accenture.bootcamp.models.abstractions.WithId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table (name = "SECTOR")
-public class Sector implements WithId<Long> {
+@Table(name = "STUDENT_EXPERTISE")
+public class StudentExpertise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
-    @Column(name = "NAME")
-    private String name;
-
+    @Column(name = "STUDENT")
     @OneToOne
-    private Course course;
+    @JoinColumn(name = "STUDENT", referencedColumnName = "ID")
+    private Student student;
+    @Column(name = "SKILL")
     @OneToOne
-    private Tutor tutor;
-    @OneToOne
+    @JoinColumn(name = "SKILL", referencedColumnName = "ID")
     private Skill skill;
+
+    @Column(name = "SKILL_LEVEL")
+    private String skillLevel;
+
 }

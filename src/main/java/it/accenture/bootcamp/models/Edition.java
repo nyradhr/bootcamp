@@ -2,12 +2,9 @@ package it.accenture.bootcamp.models;
 
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+import it.accenture.bootcamp.models.abstractions.WithId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,25 +14,35 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 @Entity
-public class Edition /*implements DBModel*/{
+@Table (name = "EDITION")
+public class Edition  implements WithId<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID")
-    private long id;
-    @Column(name="START_DATE")
+    private Long id;
+    @Column(name="START_DATE", nullable = false)
     private LocalDate startDate;
     @Column(name="END_DATE")
     private LocalDate endDate;
-    @Column(name="COURSE")
-    private long courseId;
-    @Column(name="FINANCING")
+    @Column(name="COURSE", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "COURSE", referencedColumnName = "ID")
+    private Course course;
+    @Column(name="FINANCING", nullable = false)
     private String financing;
     @Column(name="COST")
     private Integer cost;
-    @Column(name="TUTOR")
-    private long tutorId;
-    @Column(name="CODE")
+    @Column(name="TUTOR", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "TUTOR", referencedColumnName = "ID")
+    private Tutor tutor;
+    @Column(name="CODE", nullable = false)
     private String code;
+
+    @OneToOne
+    private Module module;
+    @OneToOne
+    private Enrollment enrollment;
+
 }
