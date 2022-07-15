@@ -18,7 +18,6 @@ public class TeachingAssignment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
-    @Column (name = "TEACHER")
     @ManyToOne
     @JoinColumn(name = "TEACHER", referencedColumnName = "ID")
     private Teacher teacher;
@@ -27,9 +26,4 @@ public class TeachingAssignment {
     private Module module;
     @Column(name = "DESCRIPTION")
     private String description;
-
-
-    //@OneToMany
-    //private List<StudentFeedback> studentFeedbacks;
-
 }

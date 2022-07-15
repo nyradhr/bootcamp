@@ -4,9 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -36,10 +39,9 @@ public class Teacher {
     @Column(name = "P_IVA")
     private String pIva;
 
-    //@OneToMany
-    //private List<Lecture> lectures;
-    //@OneToOne
-    //private List<TeachingAssignment> teachingAssignments;
-    //@OneToOne
-    //private List<TeacherExpertise> teacherExpertises;
+    @OneToMany(mappedBy = "teacher")
+    private List<TeachingAssignment> teachingAssignments;
+    @OneToMany(mappedBy = "teacher")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<TeacherExpertise> teacherExpertises;
 }

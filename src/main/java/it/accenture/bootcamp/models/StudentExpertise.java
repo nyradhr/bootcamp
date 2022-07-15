@@ -18,11 +18,9 @@ public class StudentExpertise {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
-    @Column(name = "STUDENT")
     @ManyToOne
     @JoinColumn(name = "STUDENT", referencedColumnName = "ID")
     private Student student;
-    @Column(name = "SKILL")
     @ManyToOne
     @JoinColumn(name = "SKILL", referencedColumnName = "ID")
     private Skill skill;

@@ -20,13 +20,7 @@ public class Skill {
     private Long id;
     @Column(name = "NAME", nullable = false)
     private String name;
-    @Column(name = "SECTOR")
     @ManyToOne
     @JoinColumn(name = "SECTOR", referencedColumnName = "ID")
     private Sector sector;
-
-    //@OneToMany
-    //private List<StudentExpertise> studentExpertises;
-    //@OneToMany
-    //private List<TeacherExpertise> teacherExpertises;
 }

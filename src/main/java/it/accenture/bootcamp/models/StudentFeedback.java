@@ -18,11 +18,9 @@ public class StudentFeedback {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
-    @Column(name = "TEACHING_ASSIGNMENT")
     @ManyToOne
     @JoinColumn(name = "TEACHING_ASSIGNMENT", referencedColumnName = "ID")
     private TeachingAssignment teachingAssignment;
-    @Column(name = "STUDENT")
     @ManyToOne
     @JoinColumn(name = "STUDENT", referencedColumnName = "ID")
     private Student student;

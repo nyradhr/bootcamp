@@ -19,11 +19,9 @@ public class Enrollment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
-    @Column(name = "STUDENT")
     @ManyToOne
     @JoinColumn(name = "STUDENT", referencedColumnName = "ID")
     private Student student;
-    @Column(name = "EDITION")
     @ManyToOne
     @JoinColumn(name = "EDITION", referencedColumnName = "ID")
     private Edition edition;

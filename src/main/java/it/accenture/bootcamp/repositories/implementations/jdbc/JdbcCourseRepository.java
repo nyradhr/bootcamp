@@ -1,6 +1,8 @@
 package it.accenture.bootcamp.repositories.implementations.jdbc;
 
 import it.accenture.bootcamp.models.Course;
+import it.accenture.bootcamp.models.Edition;
+import it.accenture.bootcamp.models.Sector;
 import it.accenture.bootcamp.repositories.abstractions.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -29,7 +32,9 @@ public class JdbcCourseRepository implements CourseRepository {
     }
     @Override
     public List<Course> findAll() {
-        return template.query("SELECT * FROM COURSE", this::rowMapper);
+        return template.query("SELECT C.ID, C.TITLE, C.DURATION, " +
+                "C.COURSE_LEVEL, C.DESCRIPTION, C.COST, S.ID SECTOR_ID, S.NAME SECTOR_NAME " +
+                "FROM COURSE C JOIN SECTOR S ON (C.SECTOR = S.ID)", this::rowMapper);
     }
 
     @Override
@@ -65,7 +70,9 @@ public class JdbcCourseRepository implements CourseRepository {
 
     @Override
     public Optional<Course> findById(Long id) {
-        Course c = template.queryForObject("SELECT COURSE WHERE ID = ?", this::rowMapper, id);
+        Course c = template.queryForObject("SELECT C.ID, C.TITLE, C.DURATION, " +
+                "C.COURSE_LEVEL, C.DESCRIPTION, C.COST, S.ID SECTOR_ID, S.NAME SECTOR_NAME " +
+                "FROM COURSE C JOIN SECTOR S ON (C.SECTOR = S.ID) WHERE ID = ?", this::rowMapper, id);
         if (c == null)
             return Optional.empty();
         else
@@ -159,9 +166,9 @@ public class JdbcCourseRepository implements CourseRepository {
 
     private Course rowMapper(ResultSet rs, int rowNum) throws SQLException {
         return new Course( rs.getLong("ID"), rs.getString("TITLE"),
-                           rs.getLong("SECTOR"),rs.getInt("DURATION"),
-                           rs.getString("COURSE_LEVEL"),rs.getString("DESCRIPTION"),
-                           rs.getInt("COST"));
+                new Sector(rs.getLong("SECTOR_ID"), rs.getString("SECTOR_NAME")),
+                rs.getInt("DURATION"), rs.getString("COURSE_LEVEL"),
+                rs.getString("DESCRIPTION"), rs.getInt("COST"), new ArrayList<Edition>());
     }
 
     @Override
@@ -197,7 +204,10 @@ public class JdbcCourseRepository implements CourseRepository {
         return c;
     }
 
+
     public Object[] getComponents(Course c){
-        return new Object[]{ c.getId(), c.getTitle(), c.getDuration(), c.getCourseLevel(), c.getDescription(), c.getSectorId()};
+        return new Object[]{ c.getId(), c.getTitle(), c.getDuration(), c.getCourseLevel(), c.getDescription(), c.getSector().getId()};
     }
+
+
 }

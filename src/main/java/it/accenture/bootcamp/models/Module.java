@@ -4,8 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,11 +28,10 @@ public class Module {
     private Edition edition;
     @Column(name = "DURATION", nullable = false)
     private int duration;
-    @Column(name = "Description")
+    @Column(name = "DESCRIPTION")
     private String description;
 
-    //@OneToMany
-    //private List<Lecture> lectures;
-    //@OneToMany
-    //private List<TeachingAssignment> teachingAssignments;
+    @OneToMany(mappedBy = "module")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<TeachingAssignment> teachingAssignments;
 }

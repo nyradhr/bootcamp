@@ -21,11 +21,4 @@ public class Sector implements WithId<Long> {
     private Long id;
     @Column(name = "NAME")
     private String name;
-
-    //@OneToMany
-    //private List<Course> courses;
-    //@OneToMany
-    //private List<Tutor> tutors;
-    //@OneToMany
-    //private List<Skill> skills;
 }

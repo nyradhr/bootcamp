@@ -20,11 +20,9 @@ public class Attendance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
-    @Column(name = "LECTURE")
     @ManyToOne
     @JoinColumn(name = "LECTURE", referencedColumnName = "ID")
     private Lecture lecture;
-    @Column(name = "STUDENT")
     @ManyToOne
     @JoinColumn(name = "STUDENT", referencedColumnName = "ID")
     private Student student;

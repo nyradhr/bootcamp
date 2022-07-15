@@ -20,7 +20,7 @@ public class CourseDTO {
     private long id;
     private String title;
     private long sectorId;
-    //private String sectorName;
+    private String sectorName;
     private int duration;
     private String courseLevel;
     private String description;

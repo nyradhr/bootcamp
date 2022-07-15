@@ -34,11 +34,7 @@ public class Tutor {
     private String address;
     @Column(name="EMAIL")
     private String email;
-    @Column(name="PREFERRED_SECTOR")
     @ManyToOne
-    @JoinColumn(name = "SECTOR", referencedColumnName = "ID")
+    @JoinColumn(name = "PREFERRED_SECTOR", referencedColumnName = "ID")
     private Sector sector;
-
-    //@OneToMany
-    //private List<Edition> editions;
 }

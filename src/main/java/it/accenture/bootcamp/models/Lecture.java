@@ -26,17 +26,11 @@ public class Lecture {
     private LocalDate startDate;
     @Column(name = "END_DATE", nullable = false)
     private LocalDate endDate;
-    @Column(name = "TEACHER")
     @ManyToOne
     @JoinColumn(name = "TEACHER", referencedColumnName = "ID")
     private Teacher teacher;
-    @Column(name = "CLASSROOM")
     @ManyToOne
     @JoinColumn(name = "CLASSROOM", referencedColumnName = "ID")
     private Classroom classroom;
-
-    //@OneToMany
-    //private List<Attendance> attendances;
-
 
 }

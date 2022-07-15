@@ -4,9 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -34,12 +37,10 @@ public class Student {
     @Column(name = "ADDRESS", nullable = false)
     private String address;
 
-    //@OneToMany
-    //private List<Attendance> attendances;
-    //@OneToMany
-    //private List<Enrollment> enrollments;
-    //@OneToMany
-    //private List<StudentExpertise> studentExpertises;
-    //@OneToMany
-    //private List<StudentFeedback> studentFeedbacks;
+
+    @OneToMany(mappedBy = "student")
+    private List<Enrollment> enrollments;
+    @OneToMany(mappedBy = "student") //punta la variabile nell'altra classe
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<StudentExpertise> studentExpertises;
 }

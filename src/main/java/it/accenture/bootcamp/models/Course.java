@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -24,7 +25,6 @@ public class Course implements WithId<Long> {
     private Long id;
     @Column(name="TITLE")
     private String title;
-    @Column(name="SECTOR")
     @ManyToOne
     @JoinColumn(name = "SECTOR", referencedColumnName = "ID")
     private Sector sector;
@@ -37,6 +37,6 @@ public class Course implements WithId<Long> {
     @Column(name="COST")
     private int cost;
 
-    //@OneToMany
-    //private List<Edition> editions;
+    @OneToMany(mappedBy = "course")
+    private List<Edition> editions;
 }
