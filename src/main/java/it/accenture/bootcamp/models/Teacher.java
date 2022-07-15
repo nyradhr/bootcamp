@@ -36,8 +36,10 @@ public class Teacher {
     @Column(name = "P_IVA")
     private String pIva;
 
-    @OneToOne
-    private Lecture lecture;
-    @OneToOne
-    private TeachingAssignment teachingAssignment;
+    //@OneToMany
+    //private List<Lecture> lectures;
+    //@OneToOne
+    //private List<TeachingAssignment> teachingAssignments;
+    //@OneToOne
+    //private List<TeacherExpertise> teacherExpertises;
 }

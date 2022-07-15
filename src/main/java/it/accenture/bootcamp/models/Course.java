@@ -25,7 +25,7 @@ public class Course implements WithId<Long> {
     @Column(name="TITLE")
     private String title;
     @Column(name="SECTOR")
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "SECTOR", referencedColumnName = "ID")
     private Sector sector;
     @Column(name="DURATION")
@@ -37,6 +37,6 @@ public class Course implements WithId<Long> {
     @Column(name="COST")
     private int cost;
 
-    @OneToOne
-    private Edition edition;
+    //@OneToMany
+    //private List<Edition> editions;
 }

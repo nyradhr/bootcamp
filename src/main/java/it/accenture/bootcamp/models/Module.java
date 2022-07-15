@@ -20,8 +20,7 @@ public class Module {
     private Long id;
     @Column(name = "TITLE", nullable = false)
     private String title;
-
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "EDITION", referencedColumnName = "ID")
     private Edition edition;
     @Column(name = "DURATION", nullable = false)
@@ -29,8 +28,8 @@ public class Module {
     @Column(name = "Description")
     private String description;
 
-    @OneToOne
-    private Lecture lecture;
-    @OneToOne
-    private TeachingAssignment teachingAssignment;
+    //@OneToMany
+    //private List<Lecture> lectures;
+    //@OneToMany
+    //private List<TeachingAssignment> teachingAssignments;
 }

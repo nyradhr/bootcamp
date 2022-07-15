@@ -26,7 +26,7 @@ public class Edition  implements WithId<Long> {
     @Column(name="END_DATE")
     private LocalDate endDate;
     @Column(name="COURSE", nullable = false)
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "COURSE", referencedColumnName = "ID")
     private Course course;
     @Column(name="FINANCING", nullable = false)
@@ -34,15 +34,15 @@ public class Edition  implements WithId<Long> {
     @Column(name="COST")
     private Integer cost;
     @Column(name="TUTOR", nullable = false)
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "TUTOR", referencedColumnName = "ID")
     private Tutor tutor;
     @Column(name="CODE", nullable = false)
     private String code;
 
-    @OneToOne
-    private Module module;
-    @OneToOne
-    private Enrollment enrollment;
+    //@OneToMany
+    //private List<Module> modules;
+    //@OneToMany
+    //private List<Enrollment> enrollments;
 
 }

@@ -21,10 +21,12 @@ public class Skill {
     @Column(name = "NAME", nullable = false)
     private String name;
     @Column(name = "SECTOR")
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "SECTOR", referencedColumnName = "ID")
     private Sector sector;
 
-    @OneToOne
-    private StudentExpertise studentExpertise;
+    //@OneToMany
+    //private List<StudentExpertise> studentExpertises;
+    //@OneToMany
+    //private List<TeacherExpertise> teacherExpertises;
 }

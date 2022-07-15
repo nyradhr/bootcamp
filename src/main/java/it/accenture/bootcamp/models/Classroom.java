@@ -34,6 +34,6 @@ public class Classroom implements WithId<Long> {
     @Column(name = "IS_VIRTUAL", nullable = false)
     private boolean isVirtual;
 
-    @OneToOne
-    private Lecture lecture;
+    //@OneToMany
+    //private List<Lecture> lectures;
 }

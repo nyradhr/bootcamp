@@ -19,15 +19,14 @@ public class StudentExpertise {
     @Column(name = "ID")
     private Long id;
     @Column(name = "STUDENT")
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "STUDENT", referencedColumnName = "ID")
     private Student student;
     @Column(name = "SKILL")
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "SKILL", referencedColumnName = "ID")
     private Skill skill;
-
-    @Column(name = "SKILL_LEVEL")
+    @Column(name = "SKILL_LEVEL", nullable = false)
     private String skillLevel;
 
 }

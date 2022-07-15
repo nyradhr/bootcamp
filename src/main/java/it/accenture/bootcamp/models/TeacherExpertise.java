@@ -12,24 +12,21 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "TEACHING_ASSIGNMENT")
-public class TeachingAssignment {
+@Table(name = "TEACHER_EXPERTISE")
+public class TeacherExpertise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
-    @Column (name = "TEACHER")
+    @Column(name = "TEACHER")
     @ManyToOne
     @JoinColumn(name = "TEACHER", referencedColumnName = "ID")
     private Teacher teacher;
+    @Column(name = "SKILL")
     @ManyToOne
-    @JoinColumn(name = "MODULE", referencedColumnName = "ID")
-    private Module module;
-    @Column(name = "DESCRIPTION")
-    private String description;
-
-
-    //@OneToMany
-    //private List<StudentFeedback> studentFeedbacks;
+    @JoinColumn(name = "SKILL", referencedColumnName = "ID")
+    private Skill skill;
+    @Column(name = "SKILL_LEVEL", nullable = false)
+    private String skillLevel;
 
 }

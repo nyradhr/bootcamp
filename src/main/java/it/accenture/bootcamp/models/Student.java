@@ -34,10 +34,12 @@ public class Student {
     @Column(name = "ADDRESS", nullable = false)
     private String address;
 
-    @OneToOne
-    private Attendance attendance;
-    @OneToOne
-    private Enrollment enrollment;
-    @OneToOne
-    private StudentExpertise studentExpertise;
+    //@OneToMany
+    //private List<Attendance> attendances;
+    //@OneToMany
+    //private List<Enrollment> enrollments;
+    //@OneToMany
+    //private List<StudentExpertise> studentExpertises;
+    //@OneToMany
+    //private List<StudentFeedback> studentFeedbacks;
 }

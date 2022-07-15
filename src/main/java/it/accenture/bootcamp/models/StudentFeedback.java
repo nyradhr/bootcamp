@@ -6,30 +6,29 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "CLASSROOM")
-
-public class Attendance {
+@Table(name = "STUDENT_FEEDBACK")
+public class StudentFeedback {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
-    @Column(name = "LECTURE")
+    @Column(name = "TEACHING_ASSIGNMENT")
     @ManyToOne
-    @JoinColumn(name = "LECTURE", referencedColumnName = "ID")
-    private Lecture lecture;
+    @JoinColumn(name = "TEACHING_ASSIGNMENT", referencedColumnName = "ID")
+    private TeachingAssignment teachingAssignment;
     @Column(name = "STUDENT")
     @ManyToOne
     @JoinColumn(name = "STUDENT", referencedColumnName = "ID")
     private Student student;
-    @Column(name = "START_DATE")
-    private LocalDate startDate;
-    @Column(name = "END_DATE")
-    private LocalDate endDate;
+    @Column(name = "GRADE", nullable = false)
+    private int grade;
+    @Column(name = "FEEDBACK", nullable = false)
+    private String feedback;
+
 }

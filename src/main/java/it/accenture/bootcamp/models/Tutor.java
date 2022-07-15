@@ -35,10 +35,10 @@ public class Tutor {
     @Column(name="EMAIL")
     private String email;
     @Column(name="PREFERRED_SECTOR")
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "SECTOR", referencedColumnName = "ID")
     private Sector sector;
 
-    @OneToOne
-    private Edition edition;
+    //@OneToMany
+    //private List<Edition> editions;
 }

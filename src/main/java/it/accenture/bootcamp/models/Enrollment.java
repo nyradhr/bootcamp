@@ -20,11 +20,11 @@ public class Enrollment {
     @Column(name = "ID")
     private Long id;
     @Column(name = "STUDENT")
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "STUDENT", referencedColumnName = "ID")
     private Student student;
     @Column(name = "EDITION")
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "EDITION", referencedColumnName = "ID")
     private Edition edition;
     @Column(name = "DROPOUT_DATE")

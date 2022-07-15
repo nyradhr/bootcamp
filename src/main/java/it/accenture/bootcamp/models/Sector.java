@@ -22,10 +22,10 @@ public class Sector implements WithId<Long> {
     @Column(name = "NAME")
     private String name;
 
-    @OneToOne
-    private Course course;
-    @OneToOne
-    private Tutor tutor;
-    @OneToOne
-    private Skill skill;
+    //@OneToMany
+    //private List<Course> courses;
+    //@OneToMany
+    //private List<Tutor> tutors;
+    //@OneToMany
+    //private List<Skill> skills;
 }
