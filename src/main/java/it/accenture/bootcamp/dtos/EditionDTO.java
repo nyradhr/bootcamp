@@ -17,10 +17,14 @@ public class EditionDTO {
     private LocalDate startDate;
     private LocalDate endDate;
     private long courseId;
+    private String courseTitle;
     private String financing;
     private Integer cost;
     private long tutorId;
+    private String tutorName;
+    private String tutorSurname;
     private String code;
+
 
 //    public static EditionDTO fromEdition(Edition e) {
 //        return new EditionDTO(e.getId(), e.getStartDate(), e.getEndDate(), e.getCourseId(),

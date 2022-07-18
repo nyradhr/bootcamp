@@ -12,8 +12,8 @@ import static it.accenture.bootcamp.services.implementations.EducationServiceImp
 
 //@Service
 public class CrudService<T extends WithId<K>, K, R extends JpaRepository<T, K>> implements AbstractCrudService<T, K> {
-    private final R repo;
-    private Class<?> entityClass;
+    protected final R repo;
+    protected Class<?> entityClass;
     public CrudService(R repo, Class<?> entityClass){
         this.repo = repo;
         this.entityClass = entityClass;

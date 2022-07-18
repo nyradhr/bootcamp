@@ -13,23 +13,35 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.sql.Statement;
+import java.util.*;
 import java.util.function.Function;
 
 @Repository
 @Profile("jdbc")
 public class JdbcCourseRepository implements CourseRepository {
     private JdbcTemplate template;
+    //private NamedParameterJdbcTemplate namedTemplate;
+    private SimpleJdbcInsert simpleInsert;
 
     @Autowired
     public JdbcCourseRepository(JdbcTemplate template) {
         this.template = template;
+        //this.namedTemplate = namedTemplate;
+        this.simpleInsert = new SimpleJdbcInsert(template).withTableName("COURSE")
+                .usingGeneratedKeyColumns("ID");
     }
     @Override
     public List<Course> findAll() {
@@ -79,7 +91,28 @@ public class JdbcCourseRepository implements CourseRepository {
         } catch (EmptyResultDataAccessException e) {
             return Optional.empty();
         }
+    }
 
+    @Override
+    public Optional<Course> findByTitle(String title) {
+        try{
+            Course c = template.queryForObject("SELECT C.ID, C.TITLE, C.DURATION, " +
+                    "C.COURSE_LEVEL, C.DESCRIPTION, C.COST, S.ID SECTOR_ID, S.NAME SECTOR_NAME " +
+                    "FROM COURSE C JOIN SECTOR S ON (C.SECTOR = S.ID) WHERE C.TITLE = ?", this::rowMapper, title);
+            return Optional.of(c);
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public List<Course> findBySectorName(String sectorName) {
+        return null;
+    }
+
+    @Override
+    public List<Course> findByTitleContainingIgnoreCase(String like) {
+        return null;
     }
 
     @Override
@@ -197,20 +230,36 @@ public class JdbcCourseRepository implements CourseRepository {
     @Override
     public Course save(Course c) {
         if (existsById(c.getId())){  //update
-            template.update("UPDATE CLASSROOM (ID, TITLE, DURATION, COURSE_LEVEL, DESCRIPTION, SECTOR_ID)" +
-                    " VALUES (?, ?, ?, ?, ?, ?)", getComponents(c));
+            template.update("UPDATE COURSE " +
+                    "SET TITLE = ?, SECTOR = ?, DURATION = ?, " +
+                    "COURSE_LEVEL = ?, DESCRIPTION = ?, COST = ? WHERE ID = ?", getComponentsForUpdate(c));
+            return c;
         }
         else{   //save
-            template.update("INSERT INTO CLASSROOM (ID, TITLE, DURATION, COURSE_LEVEL, DESCRIPTION, SECTOR_ID)" +
-                    " VALUES (?, ?, ?, ?, ?, ?)", getComponents(c));
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("TITLE", c.getTitle());
+            parameters.put("SECTOR", c.getSector().getId());
+            parameters.put("DURATION", c.getDuration());
+            parameters.put("COURSE_LEVEL", c.getCourseLevel());
+            parameters.put("DESCRIPTION", c.getDescription());
+            parameters.put("COST", c.getCost());
+            simpleInsert.execute(parameters);
+            return findByTitle(c.getTitle()).get();
         }
-        return c;
     }
 
 
-    public Object[] getComponents(Course c){
-        return new Object[]{ c.getId(), c.getTitle(), c.getDuration(), c.getCourseLevel(), c.getDescription(), c.getSector().getId()};
+    /*
+    public Object[] getComponentsForInsert(Course c){
+        return new Object[]{ c.getTitle(), c.getSector().getId(), c.getDuration(), c.getCourseLevel(),
+                c.getDescription(), c.getCost()};
     }
 
+     */
+
+    public Object[] getComponentsForUpdate(Course c){
+        return new Object[]{ c.getTitle(), c.getSector().getId(), c.getDuration(), c.getCourseLevel(),
+                c.getDescription(), c.getCost(), c.getId()};
+    }
 
 }

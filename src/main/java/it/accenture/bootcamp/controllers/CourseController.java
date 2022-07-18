@@ -2,11 +2,15 @@ package it.accenture.bootcamp.controllers;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
+import it.accenture.bootcamp.dtos.EditionDTO;
 import it.accenture.bootcamp.mapstruct.CourseMapper;
-import it.accenture.bootcamp.services.implementations.CourseCrudService;
+import it.accenture.bootcamp.mapstruct.EditionMapper;
+import it.accenture.bootcamp.models.Edition;
+import it.accenture.bootcamp.services.implementations.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,18 +25,34 @@ import it.accenture.bootcamp.services.abstractions.EducationService;
 @RequestMapping("course")
 public class CourseController {
     private EducationService eduService;
-    private CourseCrudService crudService;
+    private CourseService crudService;
 
     @Autowired
-    public CourseController(EducationService eduService, CourseCrudService crudService) {
+    public CourseController(EducationService eduService, CourseService crudService) {
         this.eduService = eduService;
         this.crudService = crudService;
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<CourseDTO>> getAll() {
-        var cls = crudService.getAll();
+    public ResponseEntity<Iterable<CourseDTO>> getCourses(@RequestParam(required = false) String sectorName,
+                                                          @RequestParam(required = false) String like) {
+        Iterable<Course> cls = null;
+        if(like != null) {
+            cls = crudService.findByTitleContaining(like);
+        } else if(sectorName != null) {
+            cls = crudService.findBySectorName(sectorName);
+        } else  {
+            cls = crudService.getAll();
+            System.out.println("getAll");
+        }
         var dtos = StreamSupport.stream(cls.spliterator(), false).map(CourseMapper.INSTANCE::fromCourse).toList();
+        return ResponseEntity.ok(dtos);
+    }
+
+    @GetMapping(value = "/{id}/editions")
+    public ResponseEntity<Iterable<EditionDTO>> findEditionsByCourse(@PathVariable long id) {
+        List<Edition> editions = crudService.findEditionsByCourse(id);
+        var dtos = editions.stream().map(EditionMapper.INSTANCE::fromEdition).toList();
         return ResponseEntity.ok(dtos);
     }
 
