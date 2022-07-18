@@ -35,13 +35,20 @@ public class CourseController {
 
     @GetMapping
     public ResponseEntity<Iterable<CourseDTO>> getCourses(@RequestParam(required = false) String sectorName,
-                                                          @RequestParam(required = false) String like) {
+                                                          @RequestParam(required = false) String like,
+                                                          @RequestParam(required = false) Integer duration,
+                                                          @RequestParam(required = false) Integer cost,
+                                                          @RequestParam(required = false) Boolean noEdition) {
         Iterable<Course> cls = null;
         if(like != null) {
             cls = crudService.findByTitleContaining(like);
         } else if(sectorName != null) {
             cls = crudService.findBySectorName(sectorName);
-        } else  {
+        } else if(duration != null && cost != null) {
+            cls = crudService.findByDurationGreaterThanAndCostLessThan(duration, cost);
+        } else if(noEdition != null && noEdition) {
+            cls = crudService.findByNoEdition();
+        } else {
             cls = crudService.getAll();
             System.out.println("getAll");
         }

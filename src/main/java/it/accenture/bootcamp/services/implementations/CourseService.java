@@ -30,5 +30,13 @@ public class CourseService extends CrudService<Course, Long, CourseRepository> {
     public List<Edition> findEditionsByCourse(long id) {
         return editionRepo.findByCourseId(id);
     }
+
+    public Iterable<Course> findByDurationGreaterThanAndCostLessThan(int duration, int cost) {
+        return repo.findByDurationGreaterThanAndCostLessThan(duration, cost);
+    }
+
+    public Iterable<Course> findByNoEdition() {
+        return repo.findByNoEdition();
+    }
 }
 

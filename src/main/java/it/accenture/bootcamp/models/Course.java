@@ -35,7 +35,7 @@ public class Course implements WithId<Long> {
     @Column(name="DESCRIPTION")
     private String description;
     @Column(name="COST")
-    private int cost;
+    private int cost; //todo: set to double
 
     @OneToMany(mappedBy = "course")
     private List<Edition> editions;

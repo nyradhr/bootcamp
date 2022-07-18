@@ -116,6 +116,16 @@ public class JdbcCourseRepository implements CourseRepository {
     }
 
     @Override
+    public List<Course> findByDurationGreaterThanAndCostLessThan(int duration, int cost) {
+        return null;
+    }
+
+    @Override
+    public List<Course> findByNoEdition() {
+        return null;
+    }
+
+    @Override
     public boolean existsById(Long id) {
         return findById(id).isPresent();
     }
@@ -133,6 +143,11 @@ public class JdbcCourseRepository implements CourseRepository {
     @Override
     public <S extends Course> List<S> saveAllAndFlush(Iterable<S> entities) {
         return null;
+    }
+
+    @Override
+    public void deleteInBatch(Iterable<Course> entities) {
+        CourseRepository.super.deleteInBatch(entities);
     }
 
     @Override
