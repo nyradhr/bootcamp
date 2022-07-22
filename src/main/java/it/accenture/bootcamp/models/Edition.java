@@ -17,7 +17,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table (name = "EDITION")
-public class Edition  implements WithId<Long> {
+public class Edition implements WithId<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID")

@@ -22,6 +22,7 @@ import it.accenture.bootcamp.models.Course;
 import it.accenture.bootcamp.services.abstractions.EducationService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("course")
 public class CourseController {
     private EducationService eduService;
@@ -50,7 +51,7 @@ public class CourseController {
             cls = crudService.findByNoEdition();
         } else {
             cls = crudService.getAll();
-            System.out.println("getAll");
+            //System.out.println("getAll");
         }
         var dtos = StreamSupport.stream(cls.spliterator(), false).map(CourseMapper.INSTANCE::fromCourse).toList();
         return ResponseEntity.ok(dtos);
@@ -96,6 +97,7 @@ public class CourseController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<?> update(@RequestBody CourseDTO cdto, @PathVariable long id) {

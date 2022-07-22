@@ -15,4 +15,6 @@ public interface EditionRepository extends JpaRepository<Edition, Long> {
     @Query("SELECT e FROM Edition e WHERE e.course.id = :id")
     List<Edition> findByCourseId(@Param("id") long id);
 
+    List<Edition> findTop4ByOrderByStartDateDesc();
+
 }
